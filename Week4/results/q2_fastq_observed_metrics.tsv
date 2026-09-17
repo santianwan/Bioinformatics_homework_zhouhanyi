@@ -1,0 +1,12 @@
+module	read	observed_value	snapshot_claim	agreement
+Sequence length distribution	R1/R2	120 reads each, all exactly 80 bp (single length bin)	All reads 80 bp (PASS)	agrees
+Per base sequence quality	R1	mean Q 35.99 over cycles 1-10, 27.45 over cycles 71-80; lowest per-cycle mean 27.15 at cycle 80; 18/120 reads (15.0%) have mean Q<20 over cycles 51-80, median Q=12.0 within that subset	3' median Phred ~12 after cycle 50 on ~15% of R1 (WARN)	agrees; the drop is a 15% read subset, not a whole-lane effect
+Per base sequence quality	R2	mean Q 36.05 (cycles 1-10) to 27.45 (cycles 71-80); 18/120 reads (15.0%) mean Q<20 over cycles 51-80, median Q=12.0	snapshot names R1 only	R2 carries the same crash; snapshot understates scope
+Per sequence GC content	R1	mean 42.8% GC; 12/120 reads (10.0%) above 65% GC -> bimodal	Main mode ~41% GC plus high-GC shoulder ~78%; ~10% of reads (WARN)	agrees
+Per sequence GC content	R2	mean 41.3% GC; 0/120 reads above 65% GC -> unimodal	snapshot does not separate mates	high-GC spike is R1-only; a real contaminant would appear in both mates
+Adapter content	R1	AGATCGGAAGAGC present in 18/120 reads (15.0%); every match starts at exactly base 67 (0-based), i.e. a fixed 13-bp 3' tail	Illumina-like AGATCGGAAGAGC rises at 3' in ~15% of pairs (FAIL)	agrees
+Adapter content	R2	AGATCGGAAGAGC present in 18/120 reads (15.0%)	as above	agrees; adapter is genuinely in both mates
+Sequence duplication levels	R1	86 unique sequences of 120; most frequent sequence present 18x (15.0%)	One template repeated in ~15% of R1 (WARN)	agrees
+Sequence duplication levels	R2	120 unique sequences of 120; most frequent sequence present 1x (0.8%)	snapshot names R1 only	duplicate is R1-only; PCR duplicates would be identical in BOTH mates, so MarkDuplicates on a paired BAM would not call these
+Overrepresented sequences	R1	top sequence (18 copies) contains AGATCGGAAGAGC; GC 33.8%	AGATCGGAAGAGC fragment among top overrepresented kmers (FAIL)	agrees; the duplicate and the adapter trap are the same reads
+Per base N content	R1/R2	0 N bases in 9,600 bases per mate	N bases ~0% (PASS)	agrees

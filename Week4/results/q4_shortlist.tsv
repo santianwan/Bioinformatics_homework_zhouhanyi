@@ -1,0 +1,4 @@
+rank	CHROM	POS	REF	ALT	GENE	CONSEQUENCE	CLINVAR_SIG	CLINVAR_ID	FILTER	DP	GQ	AF	severity	cv_weight
+1	chr17	7673803	G	A	TP53	splice_acceptor_variant	Pathogenic	VCV000012345	PASS	80	99	1e-5	3	3
+2	chr13	32316461	C	T	BRCA2	missense_variant	Uncertain_significance	VCV000067890	PASS	60	90	1e-4	5	1
+3	chr12	25398284	C	A	KRAS	missense_variant	Conflicting_interpretations_of_pathogenicity	VCV000000888	PASS	58	91	1.5e-4	5	1

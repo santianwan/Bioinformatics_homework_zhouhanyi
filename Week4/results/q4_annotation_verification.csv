@@ -1,0 +1,13 @@
+CHROM,POS,stated_GENE,stated_REF,Ensembl_GRCh38_gene_at_POS,Ensembl_GRCh37_gene_at_POS,Ensembl_GRCh38_span_of_stated_gene,Ensembl_GRCh37_span_of_stated_gene,UCSC_hg38_ref_base,UCSC_hg19_ref_base,REF_matches_GRCh38,gene_matches_GRCh38,coordinate_build_inferred,stated_CLINVAR_ID,stated_CLINVAR_SIG,NCBI_ClinVar_record_for_that_ID,ID_matches_stated_gene
+chr17,7673803,TP53,G,TP53,DNAH2,17:7661779-7687546,17:7565097-7590856,G,G,yes,yes,GRCh38,VCV000012345,Pathogenic,NM_001065.4(TNFRSF1A):c.295T>A (p.Cys99Ser),no
+chr13,32316461,BRCA2,C,BRCA2,RXFP2,13:32315086-32400268,13:32889611-32973805,A,G,no,yes,indeterminate / synthetic,VCV000067890,Uncertain_significance,NM_000335.5(SCN5A):c.4412A>G (p.Asn1471Ser),no
+chr1,169519049,F5,G,F5,F5,1:169511951-169586699,1:169483404-169555826,T,T,no,yes,indeterminate / synthetic,VCV000000111,Benign,NM_001193315.2(VIPAS39):c.535C>T (p.Gln179Ter),no
+chr7,117199644,CFTR,C,ST7,CFTR,7:117287120-117715971,7:117105838-117356025,C,A,yes,no,GRCh37,VCV000000222,Benign,NM_000027.4(AGA):c.179G>A (p.Gly60Asp),no
+chr2,47641560,MSH2,A,MSH2,MSH2,2:47403067-47663146,2:47630108-47789450,G,A,no,yes,indeterminate / synthetic,VCV000000333,Pathogenic,NM_001042492.3(NF1):c.5186_5190del (p.Ala1729fs),no
+chr6,29942857,HLA-A,T,[unnamed unprocessed_pseudogene]; POLR1HASP; HLA-A,no gene at this position,6:29941260-29949606,6:29909037-29913661,G,T,no,yes,indeterminate / synthetic,VCV000000444,Uncertain_significance,NM_207581.4(DUOXA2):c.738C>G (p.Tyr246Ter),no
+chr8,128750000,.,A,[unnamed lncRNA]; CCDC26,MYC,n/a,n/a,A,G,yes,no,indeterminate / synthetic,.,.,n/a (no ID given),n/a
+chr11,108323000,ATM,G,C11orf65; ATM,C11orf65,11:108222788-108369102,11:108093211-108239829,T,A,no,yes,indeterminate / synthetic,VCV000000555,Benign,NM_000140.5(FECH):c.314+2T>G,no
+chr19,11200200,LDLR,C,DOCK6-AS1; DOCK6,LDLR,19:11089418-11133830,19:11200038-11244492,G,A,no,no,GRCh37,VCV000000666,Likely_benign,NM_000312.4(PROC):c.1000G>A (p.Gly334Ser),no
+chrX,153870000,MECP2,G,L1CAM,IKBKGP1,X:154021573-154137103,X:153287024-153363212,C,A,no,no,indeterminate / synthetic,VCV000000777,Pathogenic,NM_198488.5(SACK1H):c.860C>A (p.Ser287Ter),no
+chr4,88000000,.,G,[unnamed lncRNA]; [unnamed lncRNA],AFF1,n/a,n/a,C,G,no,no,indeterminate / synthetic,.,.,n/a (no ID given),n/a
+chr12,25398284,KRAS,C,no gene at this position,KRAS,12:25205246-25326473,12:25357723-25403870,G,C,no,no,GRCh37,VCV000000888,Conflicting_interpretations_of_pathogenicity,NM_000046.5(ARSB):c.1143-8T>G,no

@@ -1,0 +1,20 @@
+12 variants to verify
+
+TP53     chr17:7673803    GRCh38 gene=TP53                               REF=G hg38=G -> GRCh38
+BRCA2    chr13:32316461   GRCh38 gene=BRCA2                              REF=C hg38=A -> indeterminate / synthetic
+F5       chr1:169519049  GRCh38 gene=F5                                 REF=G hg38=T -> indeterminate / synthetic
+CFTR     chr7:117199644  GRCh38 gene=ST7                                REF=C hg38=C -> GRCh37
+MSH2     chr2:47641560   GRCh38 gene=MSH2                               REF=A hg38=G -> indeterminate / synthetic
+HLA-A    chr6:29942857   GRCh38 gene=[unnamed unprocessed_pseudogene];  REF=T hg38=G -> indeterminate / synthetic
+.        chr8:128750000  GRCh38 gene=[unnamed lncRNA]; CCDC26           REF=A hg38=A -> indeterminate / synthetic
+ATM      chr11:108323000  GRCh38 gene=C11orf65; ATM                      REF=G hg38=T -> indeterminate / synthetic
+LDLR     chr19:11200200   GRCh38 gene=DOCK6-AS1; DOCK6                   REF=C hg38=G -> GRCh37
+MECP2    chrX:153870000  GRCh38 gene=L1CAM                              REF=G hg38=C -> indeterminate / synthetic
+.        chr4:88000000   GRCh38 gene=[unnamed lncRNA]; [unnamed lncRNA] REF=G hg38=C -> indeterminate / synthetic
+KRAS     chr12:25398284   GRCh38 gene=no gene at this position           REF=C hg38=G -> GRCh37
+
+REF matches GRCh38:            3/12 resolved (0 lookup(s) unavailable)
+ClinVar ID matches its gene:  0/10 resolved
+Coordinates that are GRCh37:  3/12  (0 not resolved)
+
+wrote C:\Users\zhy\.claude-science\orgs\a2118384-5e69-47d1-a0bc-0a0ce1a63c35\workspaces\88a3290b-3811-4414-a079-58ee02588321\Week4\results\q4_annotation_verification.csv
