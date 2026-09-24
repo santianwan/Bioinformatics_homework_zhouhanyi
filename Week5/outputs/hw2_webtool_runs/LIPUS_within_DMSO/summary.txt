@@ -1,0 +1,12 @@
+EasyMultiProfiler RNAseq one-click run
+Experiment: rnaseq_course
+Started:    2026-09-25 01:44:16
+
+[01:44:18] PCA + scatter                                2.18s  ok
+[01:44:28] DESeq2 diff                                 10.24s  ok | n=14189
+[01:44:29] Volcano                                      1.03s  ok
+[01:44:30] DEG heatmap                                  0.54s  ok | failed
+[01:44:30] Top-var heatmap                              0.44s  ok
+[01:44:31] Sample correlation                           0.46s  ok
+[01:45:10] KEGG enrichment                             38.53s  ok | err: enrichKEGG() failed for organism 'mmu': cannot open the connection to 'https://rest.kegg.jp/link/mmu/pathway'. If this is a network error retry, or switch to GO.
+[01:45:46] GO enrichment                               36.15s  ok | n=0

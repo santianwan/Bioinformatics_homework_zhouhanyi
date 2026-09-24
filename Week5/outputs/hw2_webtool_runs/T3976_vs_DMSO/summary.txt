@@ -1,0 +1,12 @@
+EasyMultiProfiler RNAseq one-click run
+Experiment: rnaseq_course
+Started:    2026-09-25 01:47:12
+
+[01:47:15] PCA + scatter                                2.15s  ok
+[01:47:24] DESeq2 diff                                  8.94s  ok | n=14235
+[01:47:25] Volcano                                      0.95s  ok
+[01:47:25] DEG heatmap                                  0.75s  ok | failed
+[01:47:26] Top-var heatmap                              0.50s  ok
+[01:47:26] Sample correlation                           0.46s  ok
+[01:48:09] KEGG enrichment                             42.73s  ok | n=4
+[01:48:45] GO enrichment                               36.03s  ok | n=17

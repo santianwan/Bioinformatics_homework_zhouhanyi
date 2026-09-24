@@ -7,17 +7,19 @@ Submission for Week 5 **Homework 1** of *Bioinformatics: From Multi-Omics Data t
 - **HW1 interpretation:** [`week5_interpretation.md`](week5_interpretation.md)
 - **HW1 AI verification log:** [`week5_AI_verification_log.md`](week5_AI_verification_log.md)
 - **HW1 analysis script:** [`code/week5_deseq2_analysis.R`](code/week5_deseq2_analysis.R)
-- **HW2 guide + reference analysis:** [`week5_homework2_guide.md`](week5_homework2_guide.md)
+- **HW2 operating guide + independent reference analysis:** [`week5_homework2_guide.md`](week5_homework2_guide.md)
+- **HW2 results + interpretation (what the tool actually produced):** [`week5_homework2_results.md`](week5_homework2_results.md)
 
 Assignment source: `Week 5/Homework/for_student/` in
 [xielab2017/Bioinformatics_SUAT_2026_FALL](https://github.com/xielab2017/Bioinformatics_SUAT_2026_FALL).
 
-> **Homework 2** (EasyMultiProfiler-Web) cannot be completed non-interactively: the upload,
-> the in-browser analysis and the Sync button all run on `http://127.0.0.1:8080` on the
-> student's own machine. [`week5_homework2_guide.md`](week5_homework2_guide.md) identifies
-> the dataset, records the operating steps, and fits the same data independently so the
-> tool's output can be checked — but the clicks and the Sync are done by hand, and that run
-> lands in `EMP2026/Week_05/transcriptomics/` rather than here.
+> **Homework 2** (EasyMultiProfiler-Web) runs interactively at `http://127.0.0.1:8080` on the
+> student's own machine — the upload, filtering, differential analysis and Sync were done by
+> hand there, following [`week5_homework2_guide.md`](week5_homework2_guide.md). The synced
+> run (T4400 vs DMSO) lands in `EMP2026/Week_05/transcriptomics/weekly/runs/`, not here;
+> [`week5_homework2_results.md`](week5_homework2_results.md) reports the actual numbers from
+> that run (and the two comparisons kept as local result bundles) against the independent
+> reference analysis.
 
 ---
 
@@ -97,11 +99,14 @@ Week5/
 ├── README.md                          this file
 ├── week5_interpretation.md            the 142-word interpretation + supporting detail
 ├── week5_AI_verification_log.md       prompt, what AI got wrong, what I verified
+├── week5_homework2_guide.md           HW2 operating steps + independent reference analysis
+├── week5_homework2_results.md         HW2 actual results from EasyMultiProfiler-Web + interpretation
 ├── code/
 │   ├── week5_deseq2_analysis.R        THE SUBMISSION - run this locally
 │   ├── week5_pydeseq2_crossrun.py     same design fitted with PyDESeq2
 │   ├── week5_figures_and_benchmark.py figures + post-hoc truth benchmark
-│   └── week5_truth_benchmark.R        benchmark for the R pipeline
+│   ├── week5_truth_benchmark.R        benchmark for the R pipeline
+│   └── hw2_emp_rnaseq_reference.py    independent factorial-model cross-check for HW2
 ├── figures/
 │   ├── week5_pca.png
 │   ├── week5_de_plot.png
@@ -111,9 +116,13 @@ Week5/
 │   ├── pydeseq2_pca_coords.csv
 │   ├── pydeseq2_run_summary.json
 │   ├── week5_truth_benchmark.csv
-│   └── week5_benchmark_summary.json
+│   ├── week5_benchmark_summary.json
+│   └── hw2_webtool_runs/              EMP-Web's own DESeq2 tables + volcano plots, 3 contrasts
 └── data/                              unmodified copies of the provided inputs
 ```
+
+HW2's own synced results (not duplicated here) land in
+`EMP2026/Week_05/transcriptomics/weekly/runs/` at the repo root.
 
 `data/` holds copies of the course files so every script runs standalone from this folder.
 
