@@ -1,0 +1,21 @@
+{
+  "tested": 989,
+  "filtered_out": 11,
+  "filtered_out_truly_changed": 2,
+  "truly_changed": 88,
+  "called": 60,
+  "tp": 58,
+  "fp": 2,
+  "fn": 30,
+  "tn": 899,
+  "sensitivity": 0.659,
+  "precision": 0.967,
+  "empirical_fdr": 0.033,
+  "specificity": 0.998,
+  "sign_correct": "58/58",
+  "pearson_r": 0.88,
+  "slope": 0.843,
+  "intercept": -0.002,
+  "median_abs_error": 0.099,
+  "rmse": 0.202
+}

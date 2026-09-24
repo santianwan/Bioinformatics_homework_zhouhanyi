@@ -1,0 +1,23 @@
+{
+  "engine": "PyDESeq2 0.5.4",
+  "genes_input": 1000,
+  "genes_tested": 989,
+  "samples": 12,
+  "design": "~batch + condition",
+  "coefficient": "condition[T.treated]",
+  "padj_cut": 0.05,
+  "lfc_cut": 1.0,
+  "n_significant": 60,
+  "n_up": 36,
+  "n_down": 24,
+  "n_padj_only": 83,
+  "n_padj_na": 0,
+  "lib_min": 112619,
+  "lib_max": 151748,
+  "pc1_var": 24,
+  "pc2_var": 9,
+  "p_pc1_condition": 4.078634299440333e-12,
+  "p_pc1_batch": 0.9863752567527375,
+  "p_pc2_batch": 0.04753630374406462,
+  "top_gene": "Gene0035"
+}
