@@ -62,28 +62,70 @@ real but modest (R²=2.9%) disease effect, not a clean two-cluster split.*
 *Shannon diversity by disease and timepoint. UC starts lower than IBS and drops
 further after treatment; IBS barely moves.*
 
+## Checking that against what EasyMultiProfiler-Web actually produced
+
+I didn't want to just assume the web tool would reproduce this, so after running its
+One-click pipeline (genus level, Shannon, Bray-Curtis/PCoA — same choices as above) I
+pulled its own `02_alpha_indices.csv` back out of the exported bundle and reran the
+identical Kruskal-Wallis tests on the web tool's own Shannon numbers, not mine. Script:
+[`code/week6_webtool_crosscheck.R`](code/week6_webtool_crosscheck.R).
+
+This did not come out the way I expected. Per-sample, the two Shannon calculations
+agree closely in rank (Spearman ρ = 0.81 across 130 matched samples, p < 2.2×10⁻¹⁶) —
+so it's the same underlying signal, not a different computation. But the group
+comparisons that were significant in my untouched run are not significant on the web
+tool's own numbers:
+
+| Test | My reference (raw counts, no filter) | Web tool's own numbers |
+|---|---:|---:|
+| Shannon ~ disease | p = 0.019 | p = 0.152 |
+| Shannon ~ timepoint, within UC | p = 0.057 | p = 0.211 |
+
+The web tool's Preprocess step applied its own default low-abundance filter (min
+prevalence 0.1, min detect rate 0.05) plus a genus-level taxonomy collapse before
+computing diversity — steps I deliberately skipped in the independent check so I'd
+have an unfiltered baseline to compare against. That combination visibly changes
+per-sample richness (e.g. sample J_XYL_F_0001_01: 25 raw observed genera/species drop
+to 8 after the tool's own pipeline) without reversing the direction of any group
+difference — the UC-after box is still visibly the lowest of the four in the tool's
+own boxplot (median ≈1.44 vs 1.58–1.65 for the other three; see
+`outputs/webtool_run_20260925-024344/plots/02_alpha_shannon_boxplot.png`) — but it
+does drop two of my three key comparisons below conventional significance.
+
+So there are really two findings here, not one, and the second one wasn't the one I
+went in looking for: the disease/diversity relationship itself, and the fact that a
+default preprocessing filter is not a neutral cleaning step — it can erase a real
+between-group signal by removing exactly the low-abundance taxa that were carrying
+it. That is worth reporting as an actual result, not folded quietly into a methods
+paragraph.
+
 ## The hypothesis
 
 **Ulcerative colitis carries a baseline gut-microbiome diversity deficit relative to
-IBS, and this deficit does not recover with treatment — if anything it may deepen.**
-Concretely: Shannon diversity differs by disease (Kruskal-Wallis p = 0.019) and,
-looked at only within UC patients, keeps falling from before to after treatment
-(p = 0.057) while IBS patients show no such trend (p = 0.80). Community composition
-tells a consistent story — PERMANOVA finds disease as the one significant driver of
-Bray-Curtis dissimilarity (R² = 2.9%, p = 0.001) with no timepoint or interaction
-effect detectable at this sample size.
+IBS, and this deficit does not recover with treatment — if anything it may deepen —
+but detecting it is sensitive to preprocessing choices that are easy to apply without
+thinking about them.** On the raw genus/species table, Shannon diversity differs by
+disease (p = 0.019), and within UC alone keeps falling from before to after treatment
+(p = 0.057) while IBS shows no such trend (p = 0.80); PERMANOVA on the same raw table
+finds disease as the one significant driver of Bray-Curtis dissimilarity (R² = 2.9%,
+p = 0.001). Running the identical comparisons on EasyMultiProfiler-Web's own output —
+after its default prevalence/detect-rate filter and genus-level collapse — keeps the
+same direction in every case but pushes both p-values above 0.05. The taxa doing the
+filtering-out are apparently informative, not just noise.
 
-I'd stop short of calling the UC before→after drop confirmed — p = 0.057 is a trend,
-not a result, and UC has the smaller n of the two diseases (58 vs 72 samples), so it's
-also the one where a real effect is hardest to detect and easiest to have gotten unlucky
-on. What I can say with more confidence is the disease effect itself (p = 0.019 alpha,
-p = 0.001 PERMANOVA, agreeing across two different measures of diversity) and the
-absence of any detectable response-group signal at baseline — good/poor responders
-look the same on 16S alone before treatment starts, at least with this many samples.
+I'd stop short of calling the UC before→after drop confirmed on either version of the
+analysis — 0.057 was never below 0.05 to begin with, and UC has the smaller n of the
+two diseases (58 vs 72 samples), which cuts both ways: real effects are harder to
+detect there, but so is separating a real trend from noise. What I'm more confident
+about is the disease effect itself, since it shows up two different ways (alpha and
+beta diversity) on the raw data, and the absence of any detectable baseline
+response-group signal, on either version of the pipeline — good/poor responders look
+the same on 16S alone before treatment starts.
 
-If I were extending this: a matched-size UC cohort (more UC patients, or fewer IBS
-ones to match) would be the direct way to firm up the before→after trend, and it's
-the obvious next step rather than trusting the p = 0.057 as-is.
+If I were extending this: rerunning the web tool's pipeline with a looser prevalence
+threshold (or none at all) would directly test whether the filter is really what's
+costing the significance, rather than inferring it the way I did here from a rank
+correlation.
 
 ---
 
@@ -91,17 +133,33 @@ the obvious next step rather than trusting the p = 0.057 as-is.
 
 - **Import:** "16S Microbiome (Course Demo)" one-click loader — confirmed against the
   tool's own `demo_data.R` that this reads `tests/16S_level-7.csv` and
-  `tests/16S_mapping.csv` directly, the same files named in the assignment.
-- **Preprocess:** low-abundance filter (recorded on export, see submission record
-  below for the exact values used).
+  `tests/16S_mapping.csv` directly, the same files named in the assignment. Loaded as
+  132 samples × 470 features (2 of the 132 assay columns don't have a mapping-file
+  match — a data quirk, not something I introduced).
+- **Preprocess:** filter tab, default values — MIN MAX COUNT 0, MIN DETECT RATE 0.05,
+  MAX DETECT RATE 1, MIN PREVALENCE 0.1, MAX NA PROPORTION 1.
 - **Analysis:** the microbiome One-click pipeline — genus-level, Shannon alpha
-  diversity, Bray-Curtis beta diversity with PCoA ordination — matching the
-  parameters used in the independent check above so the two are comparable.
-- **Sync:** submitted to GitHub; commit link and run path in the submission record.
+  diversity, Bray-Curtis beta diversity with PCoA/PCA/NMDS ordination, |log2FC| ≥ 1
+  and p ≤ 0.05 for the (empty-output) differential-taxa step.
+- **Sync:** submitted to GitHub — commit and run path below.
+
+Full output from this run (summary log, alpha/beta tables, plots) is kept in
+[`outputs/webtool_run_20260925-024344/`](outputs/webtool_run_20260925-024344/).
 
 ## Submission record
 
-*(to fill in after the Sync step — see `README.md` for the checklist)*
+- **Synced to GitHub:** commit
+  [`4e98dea`](https://github.com/santianwan/Bioinformatics_homework_zhouhanyi/commit/4e98dea72b70379cc139779795d0a06be0c58092),
+  landed at `EMP2026/Week_06/microbiome_16s/weekly/runs/2026-09-24T18-53-27-018Z-11jyf8/`.
+  Confirmed the synced `results/m16s_course_alpha.csv` matches the locally downloaded
+  ZIP bundle exactly (same per-sample Shannon values, e.g. J_XYL_F_0001_01 = 0.9231 in
+  both) — it's the same run, not a different one overwriting it.
+- The first Sync attempt failed with `Could not snapshot session file
+  empt_rnaseq_course.rds ... embedded nul in string` — a leftover, corrupted session
+  snapshot from the unrelated Week 5 RNA-seq work still sitting in the same EMP-Web
+  session. Clearing all loaded experiments and reloading only the 16S Course Demo
+  before re-running Preprocess and One-click Run resolved it. (Week 5's RNA-seq result
+  was already synced separately before this, so clearing it here lost nothing.)
 
 ---
 
