@@ -1,6 +1,6 @@
 {
-  "LIPUS_in_DMSO": {
-    "question": "Does ultrasound alone change expression?",
+  "LIPUS_within_DMSO": {
+    "question": "Does ultrasound change expression in the DMSO (vehicle) arm?",
     "tested": 13842,
     "significant": 0,
     "up": 0,
@@ -31,6 +31,28 @@
     "top_gene": "Vdac1",
     "top_lfc": -0.207,
     "top_padj": 0.03575173904358388
+  },
+  "Interaction_T4400xLIPUS": {
+    "question": "Does LIPUS change the size of the T4400 effect?",
+    "tested": 13842,
+    "significant": 0,
+    "up": 0,
+    "down": 0,
+    "padj_only": 0,
+    "top_gene": "Zyg11b",
+    "top_lfc": -0.236,
+    "top_padj": 0.9599697716983375
+  },
+  "Interaction_T3976xLIPUS": {
+    "question": "Does LIPUS change the size of the T3976 effect?",
+    "tested": 13842,
+    "significant": 0,
+    "up": 0,
+    "down": 0,
+    "padj_only": 0,
+    "top_gene": "1110004F10Rik",
+    "top_lfc": 0.034,
+    "top_padj": 0.9989782022195421
   },
   "_design": {
     "genes_input": 24394,

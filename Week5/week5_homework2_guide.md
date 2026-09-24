@@ -10,10 +10,12 @@
 > numbers to check the tool against, and the biological interpretation is drafted.
 >
 > I did not need your local folder: `tests/` is published in the tool's own repository,
-> [xielab2017/EasyMultiProfiler-Web](https://github.com/xielab2017/EasyMultiProfiler-Web),
-> and that is where the copies in `data/hw2_emp/` came from. They are the same files that ship in
-> your `EasyMultiProfiler-Web-9.0.4\tests\` — I could not diff against your local copies,
-> so if yours differ, yours are the ones to upload.
+> [xielab2017/EasyMultiProfiler-Web](https://github.com/xielab2017/EasyMultiProfiler-Web)
+> (branch `main`), and that is the **only** source of the copies in `data/hw2_emp/`.
+> **I have never read your local `EasyMultiProfiler-Web-9.0.4\tests\`** — the host-access
+> request for that path was refused — so I have not compared the two and cannot claim they
+> match. Upload **your** local copies. If their gene or sample counts differ from the
+> figures below, yours are correct and my reference numbers do not apply.
 
 ---
 
@@ -67,8 +69,11 @@ These follow the tool's own README (v9.0.4). Web UI `http://127.0.0.1:8080`, API
    the smallest group size — which keeps 13,842 of 24,394 genes (43.3 % removed). Whatever
    the tool's default is, **write the rule down**; the checklist from Homework 1 asks for it.
 4. **Differential analysis.** Reference level **DMSO**. Run at least:
-   `T4400 vs DMSO`, `T3976 vs DMSO`, and `LIPUS vs no LIPUS`. Use adjusted *p* < 0.05 with
-   |log2FC| ≥ 1, the same thresholds as Homework 1, and report both.
+   `T4400 vs DMSO`, `T3976 vs DMSO`, and `LIPUS vs no LIPUS`. If the tool can fit
+   `~ compound + lipus + compound:lipus`, also extract the two **interaction** terms — they
+   are the only test of whether ultrasound potentiates a compound, and a pairwise
+   group comparison does not answer it. Use adjusted *p* < 0.05 with |log2FC| ≥ 1, the same
+   thresholds as Homework 1, and report both.
 5. **Visualisation.** PCA plus a volcano or MA plot for each contrast.
 6. **Export → Sync.**
    - Register / log in: **student ID `SUAT24000202`**, name (required), password ≥ 8 characters.
@@ -101,11 +106,18 @@ adjusted *p* < 0.05 and |log2FC| ≥ 1. Script: [`code/hw2_emp_rnaseq_reference.
 Exact agreement is not expected — the web tool may filter, normalise or shrink differently.
 Large disagreement means one of you has the design wrong, and that is worth finding.
 
-| Contrast | Significant | Up | Down | padj < 0.05 alone |
-|---|---:|---:|---:|---:|
-| **T4400 vs DMSO** | **145** | 82 | 63 | 1,610 |
-| T3976 vs DMSO | 0 | 0 | 0 | 1 |
-| LIPUS vs no LIPUS | 0 | 0 | 0 | 0 |
+| Contrast | What it asks | Significant | Up | Down | padj < 0.05 alone |
+|---|---|---:|---:|---:|---:|
+| **T4400 vs DMSO** | compound effect, no ultrasound | **145** | 82 | 63 | 1,610 |
+| T3976 vs DMSO | compound effect, no ultrasound | 0 | 0 | 0 | 1 |
+| LIPUS within DMSO | ultrasound effect **in the vehicle arm only** | 0 | 0 | 0 | 0 |
+| T4400 × LIPUS | does ultrasound change the size of the T4400 effect? | 0 | 0 | 0 | 0 |
+| T3976 × LIPUS | does ultrasound change the size of the T3976 effect? | 0 | 0 | 0 | 0 |
+
+Because the model carries an interaction, the `lipus` coefficient is the ultrasound effect
+**at the reference compound (DMSO)**, not an overall ultrasound effect — hence the row name.
+The last two rows are the actual potentiation test; the smallest adjusted *p* in either is
+0.96 (T4400 × LIPUS) and 0.999 (T3976 × LIPUS), so neither is close.
 
 **Strongest T4400 responses**
 
@@ -140,9 +152,9 @@ Large disagreement means one of you has the design wrong, and that is worth find
 Of the three comparisons, only **T4400** produces a transcriptional response: 145 genes at
 adjusted *p* < 0.05 with at least a two-fold change, 82 up and 63 down. **T3976 is
 essentially silent** (1 gene at FDR alone, none passing both thresholds), and **ultrasound
-alone changes nothing detectable** — no gene passes even the FDR cut for LIPUS versus no
-LIPUS. The PCA agrees: the only samples displaced along PC1 are T4400, and LIPUS explains
-nothing on that axis (*p* = 0.64).
+changes nothing detectable in the vehicle arm** — no gene passes even the FDR cut for LIPUS
+versus no LIPUS within DMSO. The PCA agrees: the only samples displaced along PC1 are
+T4400, and LIPUS explains nothing on that axis (*p* = 0.64).
 
 The T4400 gene list is coherent rather than scattered. The strongest inductions —
 *Mmp13*, *Ccl3*, *Clec4e*, *Kng1*, *Lcn2* — are a matrix-degradation and innate-inflammatory
@@ -161,9 +173,14 @@ Three limits on that reading, all of which belong in the write-up:
    nothing" means *this experiment cannot resolve what T3976 does*. 1,610 genes pass FDR for
    T4400 but only 145 clear the effect-size bar, which is the same point from the other
    direction: the design is underpowered for modest effects.
-2. **No interaction was significant**, so there is no evidence here that ultrasound
-   potentiates either compound — which was presumably the point of the design. Reporting
-   that honestly is worth more than hunting for a sub-threshold trend.
+2. **Neither interaction term is significant.** Fitting
+   `~ compound + lipus + compound:lipus` and testing the two `compound:lipus` coefficients
+   directly returns no gene at FDR for either compound — the smallest adjusted *p* is 0.96
+   for T4400 × LIPUS and 0.999 for T3976 × LIPUS. So there is no evidence here that
+   ultrasound potentiates either compound, which was presumably the point of the design.
+   Note this is a statement about an interaction test that was actually run: a pairwise
+   group comparison cannot support it, and reporting the null honestly is worth more than
+   hunting for a sub-threshold trend.
 3. **Gene-level association only.** Nothing here shows the compound acts directly on
    chondrocytes rather than through another cell type in the tissue, and no dose or time
    course is available.

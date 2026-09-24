@@ -101,10 +101,29 @@ dds.deseq2()
 # ------------------------------------------------------- 3. Contrasts of interest
 # Each contrast answers one question; naming them here keeps the report honest about
 # what was tested rather than reporting whichever comparison looked best.
+# With an interaction in the model, the `lipus` coefficient is the ultrasound effect
+# AT THE REFERENCE COMPOUND (DMSO) -- not an overall ultrasound effect. Named
+# accordingly so the report cannot overstate it.
+coefs = list(dm.columns)
+
+
+def coef_vector(name):
+    """Numeric contrast selecting a single fitted coefficient."""
+    v = np.zeros(len(coefs))
+    v[coefs.index(name)] = 1.0
+    return v
+
+
 contrasts = {
-    "LIPUS_in_DMSO":      (["lipus", "yes", "no"],        "Does ultrasound alone change expression?"),
+    "LIPUS_within_DMSO":  (["lipus", "yes", "no"],        "Does ultrasound change expression in the DMSO (vehicle) arm?"),
     "T4400_vs_DMSO":      (["compound", "T4400", "DMSO"], "Does compound T4400 alone change expression?"),
     "T3976_vs_DMSO":      (["compound", "T3976", "DMSO"], "Does compound T3976 alone change expression?"),
+    # The interaction terms are the only test of "does ultrasound potentiate the
+    # compound?". Without these, no statement about potentiation is supportable.
+    "Interaction_T4400xLIPUS": (coef_vector("compound[T.T4400]:lipus[T.yes]"),
+                                "Does LIPUS change the size of the T4400 effect?"),
+    "Interaction_T3976xLIPUS": (coef_vector("compound[T.T3976]:lipus[T.yes]"),
+                                "Does LIPUS change the size of the T3976 effect?"),
 }
 
 summary, tables = {}, {}
