@@ -2,16 +2,22 @@
 
 Submission for Week 5 **Homework 1** of *Bioinformatics: From Multi-Omics Data to Discovery*.
 
-- **Interpretation:** [`week5_interpretation.md`](week5_interpretation.md)
-- **AI verification log:** [`week5_AI_verification_log.md`](week5_AI_verification_log.md)
-- **Analysis script:** [`code/week5_deseq2_analysis.R`](code/week5_deseq2_analysis.R)
+**Zhou Hanyi · SUAT24000202**
+
+- **HW1 interpretation:** [`week5_interpretation.md`](week5_interpretation.md)
+- **HW1 AI verification log:** [`week5_AI_verification_log.md`](week5_AI_verification_log.md)
+- **HW1 analysis script:** [`code/week5_deseq2_analysis.R`](code/week5_deseq2_analysis.R)
+- **HW2 guide + reference analysis:** [`week5_homework2_guide.md`](week5_homework2_guide.md)
 
 Assignment source: `Week 5/Homework/for_student/` in
 [xielab2017/Bioinformatics_SUAT_2026_FALL](https://github.com/xielab2017/Bioinformatics_SUAT_2026_FALL).
 
-> **Homework 2** (EasyMultiProfiler-Web) is **not** in this folder. It requires uploading
-> files through a local web interface and submitting with that tool's own Sync button,
-> which has to be done interactively.
+> **Homework 2** (EasyMultiProfiler-Web) cannot be completed non-interactively: the upload,
+> the in-browser analysis and the Sync button all run on `http://127.0.0.1:8080` on the
+> student's own machine. [`week5_homework2_guide.md`](week5_homework2_guide.md) identifies
+> the dataset, records the operating steps, and fits the same data independently so the
+> tool's output can be checked — but the clicks and the Sync are done by hand, and that run
+> lands in `EMP2026/Week_05/transcriptomics/` rather than here.
 
 ---
 

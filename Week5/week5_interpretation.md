@@ -1,6 +1,6 @@
 # Week 5 — Interpretation
 
-**Name:** Zhou Hanyi  **Student ID:** _(fill in)_  **Date:** 2026-09-24
+**Name:** Zhou Hanyi  **Student ID:** SUAT24000202  **Date:** 2026-09-24
 
 **Comparison:** treated versus control, design `~ batch + condition`, control as the
 reference level, coefficient `condition_treated_vs_control`.

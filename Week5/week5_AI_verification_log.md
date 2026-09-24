@@ -1,6 +1,6 @@
 # Week 5 — AI verification log
 
-**Name:** Zhou Hanyi  **Student ID:** _(fill in)_  **Date:** 2026-09-24
+**Name:** Zhou Hanyi  **Student ID:** SUAT24000202  **Date:** 2026-09-24
 
 The assignment requires AI to be used for **one clearly documented task**. This log
 records the prompt, what the AI produced, what I checked, and what I rejected.

@@ -1,0 +1,47 @@
+{
+  "LIPUS_in_DMSO": {
+    "question": "Does ultrasound alone change expression?",
+    "tested": 13842,
+    "significant": 0,
+    "up": 0,
+    "down": 0,
+    "padj_only": 0,
+    "top_gene": "Urgcp",
+    "top_lfc": -0.182,
+    "top_padj": 0.44721786751036496
+  },
+  "T4400_vs_DMSO": {
+    "question": "Does compound T4400 alone change expression?",
+    "tested": 13573,
+    "significant": 145,
+    "up": 82,
+    "down": 63,
+    "padj_only": 1610,
+    "top_gene": "Zfp945",
+    "top_lfc": 0.481,
+    "top_padj": 0.0008370705684333058
+  },
+  "T3976_vs_DMSO": {
+    "question": "Does compound T3976 alone change expression?",
+    "tested": 13842,
+    "significant": 0,
+    "up": 0,
+    "down": 0,
+    "padj_only": 1,
+    "top_gene": "Vdac1",
+    "top_lfc": -0.207,
+    "top_padj": 0.03575173904358388
+  },
+  "_design": {
+    "genes_input": 24394,
+    "genes_tested": 13842,
+    "samples": 24,
+    "lib_min": 20538855,
+    "lib_max": 40391543,
+    "depth_group_chi2_p": 0.751,
+    "pc1_var": 80,
+    "pc2_var": 6,
+    "padj_cut": 0.05,
+    "lfc_cut": 1.0
+  }
+}

@@ -2,7 +2,7 @@
 ## Genomics — Sequencing, Variant Interpretation, and AI-Assisted Analysis
 
 **Name:** Zhou Hanyi
-**Student ID:** _(fill in)_
+**Student ID:** SUAT24000202
 **Date:** 2026-09-17
 **Course:** Bioinformatics: From Multi-Omics Data to Discovery
 
