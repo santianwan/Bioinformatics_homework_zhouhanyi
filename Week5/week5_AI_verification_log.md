@@ -59,10 +59,12 @@ these now match the exported table exactly.
 These were done by hand, not by AI, because they are the two failures that produce a
 complete, plausible, and entirely wrong result.
 
-> **Which run these came from.** For the reason set out in §4, the R script has not been
-> executed here; the checks below were run in the PyDESeq2 cross-run, which uses the same
-> inputs and the same design. The R script encodes each one as a `stopifnot()`, so running
-> it re-performs them. Anything below that I did **not** observe is marked as such.
+> **Which run these came from.** These checks were first run in the PyDESeq2 cross-run,
+> which uses the same inputs and the same design; the R script encodes each one as a
+> `stopifnot()`, so running it re-performs them independently. It has since been run (see
+> §4 update, 2026-09-24) and every `stopifnot()` passed without raising — the paragraphs
+> below are left as originally written, with the outcome now confirmed rather than merely
+> expected.
 
 **Sample identity.** Asserted rather than assumed — in the R script as
 
@@ -82,12 +84,13 @@ cross-run: the design matrix columns are `Intercept`, `batch[T.B]`, `batch[T.C]`
 Had this been the other way round, every fold change would have flipped sign with no
 error raised.
 
-**Coefficient name — verified in PyDESeq2, not yet in R.** The name is read from the
+**Coefficient name — verified in PyDESeq2, and now in R.** The name is read from the
 fitted object rather than hard-coded. In the cross-run it is `condition[T.treated]`.
 DESeq2 names the same coefficient `condition_treated_vs_control`; the R script checks
 `resultsNames(dds)` for that string and **stops** if it is absent, so a mismatch cannot
-pass silently. I have not observed `resultsNames()` output directly — that happens when
-the R script is run.
+pass silently. Running the R script (§4 update, 2026-09-24) confirms
+`resultsNames(dds) = Intercept, batch_B_vs_A, batch_C_vs_A, condition_treated_vs_control`
+directly.
 
 **Direction, checked against the counts themselves.** For the top gene, the normalised
 counts were averaged by group by hand and compared with the reported fold change:
@@ -151,6 +154,32 @@ the R output is correct and should replace the numbers quoted here.**
 One known cosmetic difference: PyDESeq2 names the coefficient `condition[T.treated]`
 (patsy-style formula naming) where DESeq2 names it `condition_treated_vs_control`. Same
 contrast, different label.
+
+### Update 2026-09-24: R script executed, numbers confirmed
+
+`week5_deseq2_analysis.R` was run on the student's own machine (R 4.6.1, DESeq2 + apeglm,
+no sandbox restriction — the install failure above was specific to the environment this
+homework was drafted in, not to Windows in general). `resultsNames(dds)` is
+`Intercept, batch_B_vs_A, batch_C_vs_A, condition_treated_vs_control`, confirming the
+expected coefficient directly rather than by inference from PyDESeq2.
+
+The R run reproduces every number in `week5_interpretation.md` exactly: 989/1000 genes
+tested, 60 significant (36 up, 24 down), 83 at padj < 0.05 alone, 0 `padj = NA`,
+top gene Gene0035 (log2FC +1.74, direction check: mean treated 161.4 vs control 46.4),
+PC1/PC2 variance 24 %/9 %, PC1~condition p = 4.08 × 10⁻¹², PC1~batch p = 0.986. No number
+in the interpretation needed correction.
+
+One script bug surfaced only by actually running it: `vst(dds, blind = FALSE)` refuses to
+run once filtering leaves 989 genes, because `vst()`'s default trend fit subsamples from
+`nsub = 1000` genes and there aren't that many left. R's own error message names the fix —
+call `varianceStabilizingTransformation(dds, blind = FALSE)` directly, which fits the same
+trend without subsampling. Applied in `week5_deseq2_analysis.R`; this only affects how the
+VST trend is fit for the PCA figure; it does not touch the count filter, the model fit, or
+any DE number above, none of which had run yet at the point this failed.
+
+`outputs/week5_deseq2_results.csv`, `outputs/week5_deseq2_object.rds`, and
+`outputs/session_info.txt` are now present, and `figures/week5_pca.png` and
+`figures/week5_de_plot.png` were overwritten with the R renders.
 
 ---
 

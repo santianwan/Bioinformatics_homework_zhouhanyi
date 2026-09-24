@@ -1,0 +1,19 @@
+{
+  "genes_input": 1000,
+  "genes_tested": 989,
+  "samples": 12,
+  "design": "~ batch + condition",
+  "coefficient": "condition_treated_vs_control",
+  "padj_cut": 0.05,
+  "lfc_cut": 1,
+  "n_significant": 60,
+  "n_up": 36,
+  "n_down": 24,
+  "n_padj_only": 83,
+  "n_padj_na": 0,
+  "lib_min": 112619,
+  "lib_max": 151748,
+  "pc1_var": 24,
+  "pc2_var": 9,
+  "top_gene": "Gene0035"
+}

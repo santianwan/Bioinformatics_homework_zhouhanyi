@@ -32,40 +32,32 @@ contributes nothing to PC1 (*p* = 0.99).
 
 ## Read this before running
 
-`week5_deseq2_analysis.R` is the submission, and **it has not been executed in the
-environment where this was prepared.** DESeq2 could not be installed there: bioconda has
-no win-64 build, and Bioconductor's Windows binaries install but will not load, because
-that sandbox refuses to `dyn.load` a compiled `.dll` from a writable directory.
+`week5_deseq2_analysis.R` is the submission. It could not be executed in the environment
+where this homework was first drafted (DESeq2 would not install there — see the AI
+verification log's original §4 for why), so the reported numbers were first measured with
+**PyDESeq2 0.5.4**, the reference Python reimplementation of the DESeq2 method, apeglm
+shrinkage included.
 
-So that the reported numbers were measured rather than assumed, the identical design was
-fitted with **PyDESeq2 0.5.4** — the reference Python reimplementation of the DESeq2
-method, apeglm shrinkage included. Every number in the interpretation comes from that
-run and is reproducible from `outputs/pydeseq2_results.csv`.
-
-**To produce the R deliverables, run one command on a machine with DESeq2:**
-
-```bash
-cd Week5/code
-Rscript week5_deseq2_analysis.R
-```
-
-That writes `outputs/week5_deseq2_results.csv`, `outputs/week5_deseq2_object.rds`,
-`outputs/session_info.txt`, and overwrites `figures/week5_pca.png` and
-`figures/week5_de_plot.png` with the R renders. DESeq2 and PyDESeq2 agree closely but not
-bit-for-bit; **where they differ, the R output is correct.**
+**It has since been run on the student's own machine** (R 4.6.1, DESeq2 + apeglm — no
+install restriction there). Every number below and in `week5_interpretation.md` is now
+confirmed by the R run itself, not inferred from PyDESeq2; see the AI verification log's
+2026-09-24 update for the one script fix this run required (`vst()` replaced with
+`varianceStabilizingTransformation()`, forced by the filtered gene count falling under
+`vst()`'s default subsampling threshold — a fix with no effect on any DE number, only on
+how the PCA transform is fit).
 
 ### Required-submission checklist
 
 | Required file | Status |
 |---|---|
 | `week5_deseq2_analysis.R` | ✅ `code/week5_deseq2_analysis.R` |
-| `week5_pca.png` | ✅ `figures/` — PyDESeq2 render; R run overwrites it |
-| `week5_de_plot.png` | ✅ `figures/` — PyDESeq2 render; R run overwrites it |
+| `week5_pca.png` | ✅ `figures/` — R render |
+| `week5_de_plot.png` | ✅ `figures/` — R render |
 | `week5_interpretation.md` | ✅ |
 | `week5_AI_verification_log.md` | ✅ |
-| `week5_deseq2_results.csv` | ⬜ **produced by running the R script** (PyDESeq2 equivalent: `outputs/pydeseq2_results.csv`) |
-| `week5_deseq2_object.rds` | ⬜ **produced by running the R script** |
-| `session_info.txt` | ⬜ **produced by running the R script** |
+| `week5_deseq2_results.csv` | ✅ `outputs/week5_deseq2_results.csv` |
+| `week5_deseq2_object.rds` | ✅ `outputs/week5_deseq2_object.rds` |
+| `session_info.txt` | ✅ `outputs/session_info.txt` |
 
 ---
 
@@ -127,7 +119,7 @@ Week5/
 
 ## Environment
 
-- R 4.5.3, targeting DESeq2 + apeglm (the script's `sessionInfo()` records the actual versions).
+- R 4.6.1, DESeq2 1.52.0 + apeglm 1.34.0 (`outputs/session_info.txt` has the full `sessionInfo()`).
 - Python 3.12, PyDESeq2 0.5.4, pandas, numpy, scipy, matplotlib.
 
 One sandbox-specific note carried in `week5_pydeseq2_crossrun.py`: PyDESeq2 opens its

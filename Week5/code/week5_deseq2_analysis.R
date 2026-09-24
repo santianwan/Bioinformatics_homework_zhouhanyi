@@ -182,7 +182,12 @@ cat("padj = NA (independent filtering):", sum(is.na(res_df$padj)), "\n\n")
 # blind = FALSE: the design is already known and trusted here, so the
 # variance-stabilising fit may use it. Transformed values are for visualisation
 # only and are never fed back into testing.
-vsd <- vst(dds, blind = FALSE)
+# [CHANGED] vst()'s default subsampling trend fit needs >= 1000 genes to draw
+# its subsample from (nsub); after filtering only 989 genes remain, so vst()
+# refuses to run and directs callers to varianceStabilizingTransformation(),
+# which fits the trend on the full (here, already small) gene set instead of
+# a subsample. Same transform, no subsampling shortcut.
+vsd <- varianceStabilizingTransformation(dds, blind = FALSE)
 pca_df <- plotPCA(vsd, intgroup = c("condition", "batch"), returnData = TRUE)
 percent_var <- round(100 * attr(pca_df, "percentVar"))
 
