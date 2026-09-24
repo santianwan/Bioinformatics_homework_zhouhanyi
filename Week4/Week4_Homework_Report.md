@@ -215,7 +215,7 @@ is the point of checking.
 Verification checklist: genome build named explicitly (GRCh38 full analysis set) ☑ ·
 formats correct at every step (FASTQ → BAM/CRAM → gVCF → VCF) ☑ · software named,
 versions to be pinned in the run log ☑ · BQSR, decoys, and trim-then-re-QC justified
-rather than defaulted ☑ · AI suggestions rejected or modified at four of six rows ☑
+rather than defaulted ☑ · AI suggestions rejected or modified at five of six rows ☑
 
 ### 4. Final conclusion
 
@@ -510,7 +510,7 @@ Ensembl/UCSC/ClinVar checks.*
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | chr17 | 7673803 | G | A | *TP53* | splice_acceptor_variant | Pathogenic | 80 | 99 | 1×10⁻⁵ | Highest-confidence call in the table; the only survivor with a truncating-class consequence and a Pathogenic label |
 | 2 | chr13 | 32316461 | C | T | *BRCA2* | missense_variant | Uncertain_significance | 60 | 90 | 1×10⁻⁴ | Passes every technical filter; rare; a clinically actionable gene. Consequence and label are both weaker than rank 1 |
-| 3 | chr12 | 25398284 | C | A | *KRAS* | missense_variant | Conflicting | 58 | 91 | 1.5×10⁻⁴ | Survives the filters, but de-prioritised: conflicting label is not evidence, and *KRAS* codon-12 biology is somatic, not germline |
+| 3 | chr12 | 25398284 | C | A | *KRAS* | missense_variant | Conflicting | 58 | 91 | 1.5×10⁻⁴ | Survives the filters, but de-prioritised on three counts: the coordinate does not verify as *KRAS* in GRCh38 (§4.3b — it is the GRCh37 position of the codon-12 hotspot, and GRCh38 *KRAS* is 12:25,205,246–25,326,473), a conflicting ClinVar label is not evidence, and codon-12 *KRAS* biology is somatic rather than germline |
 
 **Top candidate for investigation: chr17:7673803 G>A in *TP53*.** Second:
 chr13:32316461 C>T in *BRCA2*, as a VUS only.
